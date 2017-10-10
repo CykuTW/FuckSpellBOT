@@ -69,7 +69,7 @@ def main():
     updater = Updater('SECRET_TOKEN')
     dp = updater.dispatcher
     dp.add_handler(CommandHandler('start', start))
-    dp.add_handler(RegexHandler(u'(?i)(?:[\w ]+|fuck)'.format(re.escape(''.join(symbols))), spell_correct))
+    dp.add_handler(RegexHandler(u'(?i)(?:[a-zA-Z0-9 {}]+|fuck)'.format(re.escape(''.join(symbols))), spell_correct))
     updater.start_polling()
     updater.idle()
 
