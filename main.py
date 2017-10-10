@@ -19,7 +19,7 @@ def ignore_symbols(sentence):
         sentence = sentence.replace(symbol, '')
     return sentence
 
-def isAlpha(word):
+def is_alpha(word):
     try:
         return ignore_symbols(word).replace(' ', '').encode('ascii').isalpha()
     except UnicodeEncodeError:
@@ -43,7 +43,7 @@ def spell_correct(bot, update, log={}):
         del log[user]
         return
 
-    if message and isAlpha(message):
+    if message and is_alpha(message):
         for symbol in symbols:
             message = message.replace(symbol, ' {} '.format(symbol))
 
@@ -59,10 +59,7 @@ def spell_correct(bot, update, log={}):
 
         if spelled != message:
             logger.info('Saved "{}" from {}'.format(spelled, user))
-            reply = 'Maybe {}\'s meaning is\n```\n'.format(user) + spelled
-            if message[-1] in '?!.':
-                reply += message[-1]
-            reply += '\n```'
+            reply = 'Maybe {}\'s meaning is\n```\n{}\n```'.format(user, spelled)
             log[user] = {
                 'message': update.message,
                 'reply': reply
